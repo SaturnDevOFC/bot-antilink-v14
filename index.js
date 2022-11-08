@@ -37,23 +37,15 @@ client.on("messageCreate", async (message) => {
     }
 })
 client.on("messageCreate", async (message) => {
-    if (!message.guild) return
+	if(!int.member.permissions.has(PermissionFlagsBits.Administrator)) return
+	if (!message.guild) return
 
-    let link = /(((discord.gg?)))/;
+	let link = /(((discord.gg?)))/;
 
-    if(client.db.get(`antilink.${message.guild.id}`) === true ) {
-        if(link.test(message) === true) {
-            let role = message.guild.roles.cache.get('1035312074047377458')
-            if(!message.member.roles.cache.get(role.id)) {//ID DO CARGO DE PERM INVITES
-                await message.delete().catch(saturndev => {})
-                message.channel.send(`❌ **|** Olá ${message.member}, você precisa ter o cargo \`${role.name}\` para poder fazer isso!`)
-                .then(x => {
-                    setTimeout(() => {
-                        x.delete()
-                    }, 10000)
-                })
-                .catch(saturndev => {})
-            }
+	if(client.db.get(`antilink.${message.guild.id}`) === true ) {
+		if(link.test(message) === true) {
+		   	     await message.delete().catch(saturndev => {})
+        	             message.channel.send(`❌ **|** Olá ${message.member}, você precisa ter o cargo \`${role.name}\` para poder fazer isso!`).then(x => setTimeout(() => x.delete(), 10000).catch(saturndev => {})
+                }
         }
-    }
 })
