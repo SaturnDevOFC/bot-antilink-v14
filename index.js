@@ -48,9 +48,8 @@ client.on("messageCreate", async (message) => {
                 await message.delete().catch(saturndev => {})
                 message.channel.send(`❌ **|** Olá ${message.member}, você precisa ter o cargo \`${role.name}\` para poder fazer isso!`)
                 .then(x => {
-                    var a = setTimeout(() => {
+                    setTimeout(() => {
                         x.delete()
-                        clearTimeout(a)
                     }, 10000)
                 })
                 .catch(saturndev => {})
