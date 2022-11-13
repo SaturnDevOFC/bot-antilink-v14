@@ -19,7 +19,7 @@ client.on("ready", async() => {
 client.on("messageCreate", async (message) => {
     if (!message.guild || message.author.bot) return
 
-    if(message.content === '!antilink off') {
+    if(message.content.startswith('!antilink off')) {
         if(!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
             message.reply({ content: `❌ **|** Olá ${message.member}, você acabou de **desativar** o antilink!` })
             client.db.set(`antilink.${message.guild.id}`, false)
@@ -27,7 +27,7 @@ client.on("messageCreate", async (message) => {
             message.reply({ content: `⚠ **|** Olá ${message.member}, Você não possue permissões para usar este comando!` })
         }
     }
-    if(message.content === '!antilink on') {
+    if(message.content.startswith('!antilink on')) {
         if(!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
             message.reply({ content: `✅ **|** Olá ${message.member}, você acabou de **ativar** o antilink!` })
             client.db.set(`antilink.${message.guild.id}`, true)
@@ -38,7 +38,7 @@ client.on("messageCreate", async (message) => {
 })
 client.on("messageCreate", async (message) => {
         if (!message.guild) return
-        if(!message.member.permissions.has(PermissionFlagsBits.Administrator)) return
+        if(message.member.permissions.has(PermissionFlagsBits.Administrator)) return
 	let link = /(((discord.gg?)))/;
 
 	if(client.db.get(`antilink.${message.guild.id}`) === true ) {
