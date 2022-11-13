@@ -21,35 +21,30 @@ client.on("messageCreate", async (message) => {
 
     if(message.content === '!antilink off') {
         if(!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
-            message.reply({ content: `<:off:1039688376066002984> **|** Olá ${message.member}, você acabou de desativar o antilink!` })
+            message.reply({ content: `❌ **|** Olá ${message.member}, você acabou de **desativar** o antilink!` })
             client.db.set(`antilink.${message.guild.id}`, false)
         } else {
-            message.reply({ content: `<:warn:1039688369585803344> **|** Olá ${message.member}, Você não possue permissões para usar este comando!` })
+            message.reply({ content: `⚠ **|** Olá ${message.member}, Você não possue permissões para usar este comando!` })
         }
     }
     if(message.content === '!antilink on') {
         if(!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
-            message.reply({ content: `<:on:1039688377848565781> **|** Olá ${message.member}, você acabou de ativar o antilink!` })
+            message.reply({ content: `✅ **|** Olá ${message.member}, você acabou de **ativar** o antilink!` })
             client.db.set(`antilink.${message.guild.id}`, true)
         } else {
-            message.reply({ content: `<:warn:1039688369585803344> **|** Olá ${message.member}, Você não possue permissões para usar este comando!` })
+            message.reply({ content: `⚠ **|** Olá ${message.member}, Você não possue permissões para usar este comando!` })
         }
     }
 })
 client.on("messageCreate", async (message) => {
-    let link = /(((discord.gg?)))/;
-
-    if (!message.guild) return
-	if(!message.member.permissions.has(PermissionFlagsBits.Administrator)) return
+        if (!message.guild) return
+        if(!message.member.permissions.has(PermissionFlagsBits.Administrator)) return
+	let link = /(((discord.gg?)))/;
 
 	if(client.db.get(`antilink.${message.guild.id}`) === true ) {
 		if(link.test(message) === true) {
 		   	await message.delete().catch(saturndev => {})
-        	message.channel.send(`<:block:1039688364103827496> **|** Olá ${message.member}, você não pode enviar convites de outros servidores aqui!`)
-            .then(x => {
-                setTimeout(() => { x.delete() }, 10000)
-            })
-            .catch(saturndev => {})
+        	        await return message.channel.send(`🚫 **|** Olá ${message.member}, você não pode enviar convites de outros servidores aqui!`).then(async(x) => setTimeout(async() => { await x.delete() }, 10000)).catch(saturndev => {})
+                }
         }
-    }
 })
